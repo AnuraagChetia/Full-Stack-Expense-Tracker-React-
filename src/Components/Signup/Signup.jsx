@@ -8,7 +8,7 @@ const Signup = (props) => {
   const emailRef = useRef();
   const nameRef = useRef();
   const passwordRef = useRef();
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const enteredEmail = emailRef.current.value;
     const enteredName = nameRef.current.value;
@@ -19,9 +19,13 @@ const Signup = (props) => {
       password: enteredPassword,
     };
     try {
-      axios.post("http://localhost:3000/users/signup", user);
+      const res = await axios.post("http://localhost:3000/users/signup", user);
+      // console.log(res.response.data);
     } catch (error) {
-      console.log(error);
+      if (error.response.data.hasOwnProperty("Duplicate entry error")) {
+        alert("Account already exist !");
+      }
+      // console.log(error.response.data); // duplicate entry
     }
   };
   return (
