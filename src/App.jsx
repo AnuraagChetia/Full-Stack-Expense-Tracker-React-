@@ -1,19 +1,30 @@
-import { useState } from "react";
 import "./App.css";
-import Signup from "./Components/Signup/Signup";
-import Login from "./Components/Login/Login";
-
+import * as React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AuthPage from "./pages/AuthPage";
+import ErrorPage from "./pages/Error/ErrorPage";
+import NavBar from "./Components/UI/NavBar";
+import TransactionsPage from "./pages/TransactionsPage";
 function App() {
-  const [mode, setMode] = useState(true);
-  const modeHandler = () => {
-    setMode((prev) => !prev);
-  };
-  return (
-    <>
-      {mode === true && <Login modeChanger={modeHandler} />}
-      {mode === false && <Signup modeChanger={modeHandler} />}
-    </>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/auth",
+      element: <AuthPage />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/",
+      element: <NavBar />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/transactions",
+          element: <TransactionsPage />,
+        },
+      ],
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;

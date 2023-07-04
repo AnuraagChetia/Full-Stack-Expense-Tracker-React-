@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  height: 3rem;
+  padding: 0.5% 0;
+  border-bottom: 1px solid #d8d2d2;
+  background-color: aliceblue;
+  justify-content: space-around;
+}
+a {
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  margin: 6px 0;
+}
+a:hover {
+  scale: 110%;
+  transition-duration: 3ms;
+}
