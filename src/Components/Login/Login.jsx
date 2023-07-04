@@ -9,7 +9,7 @@ import { faAppleAlt, faPlay } from "@fortawesome/free-solid-svg-icons";
 const Login = (props) => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const enteredEmail = emailRef.current.value;
     const enteredPassword = passwordRef.current.value;
@@ -18,9 +18,22 @@ const Login = (props) => {
       password: enteredPassword,
     };
     try {
-      axios.post("http://localhost:3000/users/login", user);
+      const res = await axios.post("http://localhost:3000/users/login", user);
+      if (res.data.message === "Login Successfull") {
+        alert("Login successfull");
+      }
     } catch (error) {
-      console.log(error);
+      const errMsg = error.response.data.err;
+      if (errMsg === "User not found") {
+        alert("User not found");
+        return;
+      }
+      if (errMsg === "Password do not match") {
+        alert("Incorrect Password");
+        return;
+      }
+      //   if (error.response)
+      console.log(errMsg);
     }
   };
   return (
