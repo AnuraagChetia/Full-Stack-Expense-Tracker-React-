@@ -27,6 +27,19 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   console.log(req.body);
+  const email = req.body.email;
+  const password = req.body.password;
+  const response = await User.findOne({ where: { email: email } });
+  if (response === null) {
+    // console.log("Not found!");
+    res.status(500).json({ err: "User not found" });
+    return;
+  }
+  if (response.password === password) {
+    res.status(200).json({ message: "Login Successfull" });
+    return;
+  }
+  res.status(500).json({ err: "Password do not match" });
 };
