@@ -20,7 +20,8 @@ const Signup = (props) => {
     };
     try {
       const res = await axios.post("http://localhost:3000/users/signup", user);
-      // console.log(res.response.data);
+      props.modeChanger();
+      alert("Account created");
     } catch (error) {
       if (error.response.data.hasOwnProperty("Duplicate entry error")) {
         alert("Account already exist !");

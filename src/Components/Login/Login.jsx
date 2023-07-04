@@ -13,26 +13,26 @@ const Login = (props) => {
     e.preventDefault();
     const enteredEmail = emailRef.current.value;
     const enteredPassword = passwordRef.current.value;
+    if (enteredEmail === "" || enteredPassword === "") {
+      return alert("Please enter all fields");
+    }
     const user = {
       email: enteredEmail,
       password: enteredPassword,
     };
     try {
       const res = await axios.post("http://localhost:3000/users/login", user);
-      if (res.data.message === "Login Successfull") {
+      if (res.data.success === true) {
         alert("Login successfull");
       }
     } catch (error) {
       const errMsg = error.response.data.err;
       if (errMsg === "User not found") {
-        alert("User not found");
-        return;
+        return alert("User not found");
       }
       if (errMsg === "Password do not match") {
-        alert("Incorrect Password");
-        return;
+        return alert("Incorrect Password");
       }
-      //   if (error.response)
       console.log(errMsg);
     }
   };

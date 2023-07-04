@@ -38,7 +38,7 @@ const Footer = () => {
           <a href="">LANGUAGE</a>
         </li>
       </ul>
-      <p>© 2020 PICTUREGRAM</p>
+      <p>© 2023 MANDOTRACK</p>
     </div>
   );
 };
