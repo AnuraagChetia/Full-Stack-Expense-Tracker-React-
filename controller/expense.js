@@ -1,8 +1,13 @@
 const Expense = require("../model/expense");
+const jwt = require("jsonwebtoken");
 
 exports.getExpense = async (req, res) => {
   try {
-    const response = await Expense.findAll();
+    const token = req.header("Authorization");
+    const user = jwt.verify(token, "thisiskey");
+    const userId = user.id;
+    console.log(userId);
+    const response = await Expense.findAll({ where: { userId: userId } });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
