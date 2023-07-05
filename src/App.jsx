@@ -1,11 +1,26 @@
 import "./App.css";
-import * as React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import ErrorPage from "./pages/Error/ErrorPage";
 import NavBar from "./Components/UI/NavBar";
 import TransactionsPage from "./pages/TransactionsPage";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { expenseActions } from "./store/expense-reducer";
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const get = async () => {
+      const res = await axios.get("http://localhost:3000/expense/get-expense");
+      const expenses = res.data;
+      expenses.forEach((exp) => {
+        dispatch(expenseActions.addExpenses(exp));
+      });
+    };
+    get();
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: "/auth",

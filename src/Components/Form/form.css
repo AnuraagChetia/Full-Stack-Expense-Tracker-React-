@@ -11,10 +11,16 @@
   width: 100%;
   padding: 0 0 20px;
 }
+select {
+  border: 1px solid gainsboro;
+  padding: 10px 7px;
+  margin: 10px 20px 0 0;
+  border-radius: 9px;
+}
 input {
   border: 1px solid gainsboro;
   padding: 10px 7px;
-  margin: 0 20px 0 0;
+  margin: 10px 20px 0 0;
   border-radius: 9px;
 }
 
