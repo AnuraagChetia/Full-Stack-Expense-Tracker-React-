@@ -12,7 +12,10 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const get = async () => {
-      const res = await axios.get("http://localhost:3000/expense/get-expense");
+      const token = JSON.parse(localStorage.getItem("token"));
+      const res = await axios.get("http://localhost:3000/expense/get-expense", {
+        headers: { Authorization: token },
+      });
       const expenses = res.data;
       expenses.forEach((exp) => {
         dispatch(expenseActions.addExpenses(exp));

@@ -41,10 +41,12 @@ i {
   margin-bottom: 15px;
 }
 
-.page .header > p {
+.page .header {
+  padding: 0;
   font-weight: bold;
-  color: #8e8e8e;
-  font-size: 18px;
+  font-style: italic;
+  padding-top: 30px;
+  font-size: 22px;
 }
 
 .fab {

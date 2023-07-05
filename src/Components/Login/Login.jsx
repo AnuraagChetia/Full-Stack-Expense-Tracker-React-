@@ -23,6 +23,7 @@ const Login = (props) => {
     try {
       const res = await axios.post("http://localhost:3000/users/login", user);
       if (res.data.success === true) {
+        localStorage.setItem("token", JSON.stringify(res.data.token));
         alert("Login successfull");
       }
     } catch (error) {
