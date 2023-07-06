@@ -20,6 +20,7 @@ exports.signup = async (req, res) => {
         name: name,
         email: email,
         password: hash,
+        premium: false,
       });
       res.status(200).json(response);
     });
@@ -55,7 +56,6 @@ exports.login = async (req, res) => {
       return;
     }
     const token = tokenGenerator(userId, email);
-    console.log(token);
     return res
       .status(200)
       .json({ success: true, message: "Login Successfull", token: token });
