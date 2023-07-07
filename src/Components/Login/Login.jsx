@@ -5,8 +5,13 @@ import axios from "axios";
 import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAppleAlt, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { userActons } from "../../store/user-reducer";
 
 const Login = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
   const submitHandler = async (e) => {
@@ -24,7 +29,15 @@ const Login = (props) => {
       const res = await axios.post("http://localhost:3000/users/login", user);
       if (res.data.success === true) {
         localStorage.setItem("token", JSON.stringify(res.data.token));
-        alert("Login successfull");
+        dispatch(
+          userActons.getUser({
+            name: res.data.name,
+            email: res.data.email,
+            premium: res.data.premium,
+          })
+        );
+        navigate("/transactions");
+        alert("logged in");
       }
     } catch (error) {
       const errMsg = error.response.data.err;
@@ -34,7 +47,7 @@ const Login = (props) => {
       if (errMsg === "Password do not match") {
         return alert("Incorrect Password");
       }
-      console.log(errMsg);
+      console.log("err", errMsg);
     }
   };
   return (
@@ -76,7 +89,7 @@ const Login = (props) => {
         <button type="button">
           <i>
             <FontAwesomeIcon icon={faPlay} />
-          </i>{" "}
+          </i>
           Google Play
         </button>
       </div>

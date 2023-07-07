@@ -10,6 +10,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const submitHandler = async (e) => {
     e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("token"));
     const enteredCategory = categoryRef.current.value;
     const enteredAmount = amountRef.current.value;
     const enteredNote = noteRef.current.value;
@@ -21,7 +22,8 @@ const Form = () => {
     try {
       const res = await axios.post(
         "http://localhost:3000/expense/add-expense",
-        expense
+        expense,
+        { headers: { Authorization: token } }
       );
       dispatch(expenseActions.addExpenses(res.data));
     } catch (error) {
@@ -29,32 +31,35 @@ const Form = () => {
     }
   };
   return (
-    <div className="formContainer">
-      <div className="header">Add transaction</div>
-      <form onSubmit={submitHandler}>
-        <select name="category" id="categpry" ref={categoryRef}>
-          <option value="rent">Rentals</option>
-          <option value="food">Food & Beverage</option>
-          <option value="water">Water Bill</option>
-          <option value="electricity">Electricity Bill</option>
-          <option value="gas">Gas Bill</option>
-        </select>
-        <input
-          type="number"
-          placeholder="Amount"
-          className="number-input"
-          ref={amountRef}
-        />
-        <input type="text" placeholder="Note" ref={noteRef} />
-        <div className="formBtn">
-          <button type="button" className="cancel">
-            Cancel
-          </button>
-          <button type="submit" className="save">
-            Save
-          </button>
-        </div>
-      </form>
+    <div className="container">
+      <div className="formContainer">
+        <form className="form" onSubmit={submitHandler}>
+          <div className="header">Add transaction</div>
+          <select name="category" id="categpry" ref={categoryRef}>
+            <option value="">Select category</option>
+            <option value="rent">Rentals</option>
+            <option value="food">Food & Beverage</option>
+            <option value="water">Water Bill</option>
+            <option value="electricity">Electricity Bill</option>
+            <option value="gas">Gas Bill</option>
+          </select>
+          <input
+            type="number"
+            placeholder="Amount"
+            className="number-input"
+            ref={amountRef}
+          />
+          <input type="text" placeholder="Note" ref={noteRef} />
+          <div className="formBtn">
+            <button type="button" className="cancel">
+              Cancel
+            </button>
+            <button type="submit" className="save">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

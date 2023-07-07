@@ -11,7 +11,7 @@
   box-shadow: 8px 16px 18px 8px rgba(0, 0, 0, 0.09);
   background-color: rgb(250, 245, 245);
   width: 30rem;
-  min-height: 20rem;
+  /* min-height: 20rem; */
 }
 .cardHeader {
   text-align: center;

@@ -1,29 +1,12 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import ErrorPage from "./pages/Error/ErrorPage";
 import NavBar from "./Components/UI/NavBar";
 import TransactionsPage from "./pages/TransactionsPage";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { expenseActions } from "./store/expense-reducer";
+import Leaderboard from "./Components/Leaderboard/Leaderboard";
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const get = async () => {
-      const token = JSON.parse(localStorage.getItem("token"));
-      const res = await axios.get("http://localhost:3000/expense/get-expense", {
-        headers: { Authorization: token },
-      });
-      const expenses = res.data;
-      expenses.forEach((exp) => {
-        dispatch(expenseActions.addExpenses(exp));
-      });
-    };
-    get();
-  }, []);
-
   const router = createBrowserRouter([
     {
       path: "/auth",
@@ -38,6 +21,10 @@ function App() {
         {
           path: "/transactions",
           element: <TransactionsPage />,
+        },
+        {
+          path: "/leaderboard",
+          element: <Leaderboard />,
         },
       ],
     },

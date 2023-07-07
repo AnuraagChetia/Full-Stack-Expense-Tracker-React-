@@ -5,7 +5,23 @@
   border-bottom: 1px solid #d8d2d2;
   background-color: aliceblue;
   justify-content: space-around;
+  align-items: center;
 }
+
+.logo {
+  display: flex;
+}
+
+.premium {
+  background: #b7ebb2;
+  margin: 2px 5px;
+}
+
+.premium:hover {
+  scale: 105%;
+  transition-duration: 3ms;
+}
+
 a {
   font-size: large;
   font-weight: bold;
