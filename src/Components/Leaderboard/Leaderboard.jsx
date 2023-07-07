@@ -1,31 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./leaderboard.css";
-const leaders = [
-  { name: "Me", totalExpense: 10 },
-  { name: "John Doe", totalExpense: 8 },
-  { name: "Jane Smith", totalExpense: 6 },
-  { name: "Bob Johnson", totalExpense: 4 },
-  { name: "Alice Williams", totalExpense: 2 },
-];
+import axios from "axios";
 
 const Leaderboard = () => {
+  const [leaderboard, setLeaderboard] = useState([]);
+  useEffect(() => {
+    const getLeaderboard = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:3000/leaderboard/get-leaderboard"
+        );
+        // console.log(data);
+        setLeaderboard(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getLeaderboard();
+  }, []);
   return (
     <div className="leaderboard-container">
       <div className="leaderboard">
         <h1 className="title">Leaderboard</h1>
         <table className="table">
-          <tr className="tHeads">
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Expenditure</th>
-          </tr>
-          {leaders.map((leader, index) => (
-            <tr className="leader">
-              <td>{++index}</td>
-              <td>{leader.name}</td>
-              <td>₹{leader.totalExpense}</td>
+          <thead>
+            <tr className="tHeads">
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Expenditure</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {leaderboard.map((leader, index) => (
+              <tr className="leader" key={index}>
+                <td>{++index}</td>
+                <td>{leader.name}</td>
+                <td>₹{leader.totalExpense}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
