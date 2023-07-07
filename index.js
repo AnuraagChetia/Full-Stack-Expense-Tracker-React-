@@ -17,6 +17,7 @@ const port = 3000;
 const userRouter = require("./routes/user");
 const expenseRouter = require("./routes/expense");
 const orderRouter = require("./routes/order");
+const leaderBoardRouter = require("./routes/leaderboard");
 
 user.hasMany(expenses);
 expenses.belongsTo(user);
@@ -27,6 +28,7 @@ order.belongsTo(user);
 app.use("/users", userRouter);
 app.use("/expense", expenseRouter);
 app.use("/order", orderRouter);
+app.use("/leaderboard", leaderBoardRouter);
 
 sequelize
   .sync()

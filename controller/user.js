@@ -37,27 +37,47 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const response = await User.findOne({ where: { email: email } });
-  const userId = response.id;
-  if (response === null) {
-    // console.log("Not found!");
-    res.status(404).json({ err: "User not found" });
-    return;
-  }
-  bcrypt.compare(password, response.password, (err, result) => {
-    if (result === false)
-      return res
-        .status(401)
-        .json({ success: false, err: "Password do not match" });
-    if (err) {
-      res.status(401).json({ success: false, err: "Something went wrong" });
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const response = await User.findOne({ where: { email: email } });
+    const userId = response.id;
+    console.log(response);
+    if (response === null) {
+      res.status(404).json({ err: "User not found" });
       return;
     }
-    const token = tokenGenerator(userId, email);
-    return res
-      .status(200)
-      .json({ success: true, message: "Login Successfull", token: token });
-  });
+    bcrypt.compare(password, response.password, (err, result) => {
+      if (result === false)
+        return res
+          .status(401)
+          .json({ success: false, err: "Password do not match" });
+      if (err) {
+        res.status(401).json({ success: false, err: "Something went wrong" });
+        return;
+      }
+      const token = tokenGenerator(userId, email);
+      return res.status(200).json({
+        success: true,
+        message: "Login Successfull",
+        token: token,
+        name: response.name,
+        email: response.email,
+        premium: response.premium,
+      });
+    });
+  } catch (error) {
+    res.status(404).json({ err: "user not found" });
+  }
+};
+
+exports.getUser = async (req, res) => {
+  // console.log(req.user);
+  try {
+    const user = await User.findByPk(req.user.id);
+    console.log(user);
+    res.status(201).json({ user: user });
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
