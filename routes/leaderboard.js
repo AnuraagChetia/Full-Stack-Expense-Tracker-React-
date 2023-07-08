@@ -3,6 +3,12 @@ const router = express.Router();
 
 const leaderboardController = require("../controller/leaderboard");
 
-router.get("/get-leaderboard", leaderboardController.getLeaderboard);
+const userAuthentication = require("../middleware/auth");
+
+router.get(
+  "/get-leaderboard",
+  userAuthentication,
+  leaderboardController.getLeaderboard
+);
 
 module.exports = router;

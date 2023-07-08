@@ -1,5 +1,5 @@
 const Expense = require("../model/expense");
-
+const User = require("../model/user");
 
 exports.getExpense = async (req, res) => {
   try {
@@ -13,13 +13,17 @@ exports.getExpense = async (req, res) => {
 exports.postExpense = async (req, res) => {
   const { category, amount, note } = req.body;
   try {
-    console.log(req.user);
     const response = await Expense.create({
       category: category,
       amount: amount,
       note: note,
       userId: req.user.id,
     });
+    const updatedTotalExpense = Number(req.user.totalExpense) + Number(amount);
+    User.update(
+      { totalExpense: updatedTotalExpense },
+      { where: { id: req.user.id } }
+    );
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -33,6 +37,12 @@ exports.deleteExpense = async (req, res) => {
     const exp = await Expense.findByPk(id);
     if (req.user.id === exp.userId) {
       const result = await exp.destroy();
+      const updatedTotalExpense =
+        Number(req.user.totalExpense) - Number(exp.amount);
+      User.update(
+        { totalExpense: updatedTotalExpense },
+        { where: { id: req.user.id } }
+      );
       res.status(200).json(result);
     }
   } catch (error) {

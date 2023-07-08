@@ -21,6 +21,7 @@ exports.signup = async (req, res) => {
         email: email,
         password: hash,
         premium: false,
+        totalExpense: 0,
       });
       res.status(200).json(response);
     });
@@ -42,7 +43,6 @@ exports.login = async (req, res) => {
     const password = req.body.password;
     const response = await User.findOne({ where: { email: email } });
     const userId = response.id;
-    console.log(response);
     if (response === null) {
       res.status(404).json({ err: "User not found" });
       return;
@@ -61,6 +61,7 @@ exports.login = async (req, res) => {
         success: true,
         message: "Login Successfull",
         token: token,
+        totalExpense: response.totalExpense,
         name: response.name,
         email: response.email,
         premium: response.premium,
@@ -75,7 +76,6 @@ exports.getUser = async (req, res) => {
   // console.log(req.user);
   try {
     const user = await User.findByPk(req.user.id);
-    console.log(user);
     res.status(201).json({ user: user });
   } catch (error) {
     res.status(500).json(error);
