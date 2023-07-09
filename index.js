@@ -18,6 +18,7 @@ const userRouter = require("./routes/user");
 const expenseRouter = require("./routes/expense");
 const orderRouter = require("./routes/order");
 const leaderBoardRouter = require("./routes/leaderboard");
+const passwordRouter = require("./routes/password");
 
 user.hasMany(expenses);
 expenses.belongsTo(user);
@@ -29,6 +30,7 @@ app.use("/users", userRouter);
 app.use("/expense", expenseRouter);
 app.use("/order", orderRouter);
 app.use("/leaderboard", leaderBoardRouter);
+app.use("/password", passwordRouter);
 
 sequelize
   .sync()
