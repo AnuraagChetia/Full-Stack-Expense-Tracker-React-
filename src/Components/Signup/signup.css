@@ -75,6 +75,7 @@ i {
 .page .container {
   display: flex;
   flex-direction: column;
+  margin: 0;
 }
 
 .page .container form,

@@ -15,9 +15,10 @@ const TransactionsPage = () => {
         headers: { Authorization: token },
       });
       const expenses = res.data;
-      expenses.forEach((exp) => {
-        dispatch(expenseActions.addExpenses(exp));
-      });
+      dispatch(expenseActions.fetchExpense(expenses));
+      // expenses.forEach((exp) => {
+      //   dispatch(expenseActions.fetchExpense(exp));
+      // });
     };
     get();
   }, []);

@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAppleAlt, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActons } from "../../store/user-reducer";
 
@@ -37,7 +38,6 @@ const Login = (props) => {
           })
         );
         navigate("/transactions");
-        alert("logged in");
       }
     } catch (error) {
       const errMsg = error.response.data.err;
@@ -58,18 +58,26 @@ const Login = (props) => {
         </div>
         <div className="container">
           <form onSubmit={submitHandler}>
-            <input type="email" placeholder="Email" ref={emailRef} />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              ref={emailRef}
+            />
             <input type="password" placeholder="Password" ref={passwordRef} />
             <button type="submit">Log in</button>
           </form>
-          <div>
+          <div className="orContainer">
             <hr />
-            <p className="or">OR</p>
+            <p>OR</p>
             <hr />
           </div>
           <button className="fab fa-facebook-square">
             Log in with Facebook
           </button>
+          <Link to="/forgetpassword" className="forgetPassword">
+            Forget password ?
+          </Link>
         </div>
       </div>
       <div className="option">

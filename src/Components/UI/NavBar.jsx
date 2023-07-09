@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useRazorpay from "react-razorpay";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 const NavBar = () => {
+  const isLoggedIn = useSelector((state) => state.user.name);
   const premium = useSelector((state) => state.user.premium);
   const Razorpay = useRazorpay();
+  //premium button handler
   const premiumHandler = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const res = await axios.get("http://localhost:3000/order/buy-premium", {
@@ -22,6 +26,7 @@ const NavBar = () => {
           headers: { Authorization: token },
         });
         alert("You are now a premium user!!");
+        window.location.reload();
       },
     };
     const rzp = new Razorpay(options);
@@ -34,27 +39,41 @@ const NavBar = () => {
     });
     rzp.open();
   };
+  //logout button handler
+  const logoutHandler = () => {
+    localStorage.clear();
+  };
   return (
     <>
       <div className="navbar">
-        <div className="logo">
-          <h1>Mando</h1>
-          {!premium && (
+        <div className="logos">
+          <a className="brand" href="/transactions">
+            Mando
+          </a>
+          {isLoggedIn && !premium ? (
             <button className="premium" onClick={premiumHandler}>
               Buy Premium
             </button>
+          ) : null}
+          {isLoggedIn && premium ? (
+            <button className="premium">Premium</button>
+          ) : null}
+        </div>
+        <div className="navs">
+          {isLoggedIn && <Link to="/transactions">Transactions</Link>}
+          {premium && isLoggedIn ? (
+            <Link to="/leaderboard">Leaderboard</Link>
+          ) : isLoggedIn ? (
+            <Link to="/transactions" className="disabled">
+              Leaderboard <FontAwesomeIcon icon={faLock} />
+            </Link>
+          ) : null}
+          {isLoggedIn && (
+            <a href="/" onClick={logoutHandler}>
+              Logout
+            </a>
           )}
-          {premium && <button className="premium">Premium</button>}
         </div>
-        <div>
-          {/* <p>
-            Anuraag<span>Rs 0.</span>
-          </p> */}
-        </div>
-
-        <Link>Leaderboard</Link>
-        <Link>Report</Link>
-        <Link>Budget</Link>
       </div>
       <Outlet />
     </>

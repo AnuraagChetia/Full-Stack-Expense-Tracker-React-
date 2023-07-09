@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./transaction.css";
 import { useDispatch, useSelector } from "react-redux";
 import { expenseActions } from "../../store/expense-reducer";
 import axios from "axios";
-import { userActons } from "../../store/user-reducer";
 // const expenses = [
 //   {
 //     amount: 200,
@@ -39,24 +38,6 @@ import { userActons } from "../../store/user-reducer";
 const Transactions = () => {
   const expenses = useSelector((state) => state.expense.expenses);
   const dispatch = useDispatch();
-  const token = JSON.parse(localStorage.getItem("token"));
-  //DOMcontentLoaded
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await axios.get("http://localhost:3000/users/get-user", {
-        headers: { Authorization: token },
-      });
-      dispatch(
-        userActons.getUser({
-          name: user.data.user.name,
-          email: user.data.user.email,
-          premium: user.data.user.premium,
-        })
-      );
-    };
-    getUser();
-  }, []);
-
   //delete button
   const deleteHandler = async (e) => {
     const id = e.target.id;
@@ -72,7 +53,6 @@ const Transactions = () => {
       console.log(error);
     }
   };
-
   return (
     <div className="container">
       <div className="card">

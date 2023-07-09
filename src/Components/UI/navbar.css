@@ -4,22 +4,33 @@
   padding: 0.5% 0;
   border-bottom: 1px solid #d8d2d2;
   background-color: aliceblue;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
-.logo {
+.brand {
+  font-size: x-large;
+}
+
+.logos {
   display: flex;
+  margin-left: 3rem;
 }
 
 .premium {
   background: #b7ebb2;
-  margin: 2px 5px;
+  margin: 2px 1rem;
 }
 
 .premium:hover {
   scale: 105%;
   transition-duration: 3ms;
+}
+
+.navs {
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
 }
 
 a {
@@ -32,4 +43,12 @@ a {
 a:hover {
   scale: 110%;
   transition-duration: 3ms;
+}
+
+.disabled {
+  color: gray;
+  cursor: default;
+}
+.disabled:hover {
+  scale: 100%;
 }

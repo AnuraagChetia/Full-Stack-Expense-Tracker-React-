@@ -22,6 +22,9 @@ const expenseSlice = createSlice({
         (item) => item.id != action.payload
       );
     },
+    fetchExpense(state, action) {
+      state.expenses = action.payload;
+    },
   },
 });
 

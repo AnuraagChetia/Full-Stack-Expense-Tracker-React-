@@ -41,12 +41,13 @@ i {
   margin-bottom: 15px;
 }
 
-.page .header {
+.logo {
   padding: 0;
   font-weight: bold;
   font-style: italic;
+  margin: 0 !important ;
   padding-top: 30px;
-  font-size: 22px;
+  font-size: xxx-large;
 }
 
 .fab {
@@ -61,12 +62,25 @@ i {
 .page .header div {
   display: flex;
   flex-direction: row;
+  text-align: center;
   align-items: center;
   color: #8e8e8e;
 }
 
+.orContainer {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  width: 100%;
+}
+
+hr {
+  margin: 0 0 8px 0;
+  /* padding: 2px; */
+}
+
 .or {
-  padding: 4px 50%;
+  padding: 0 0 4px 0;
 }
 
 .page .header div hr {
@@ -145,6 +159,21 @@ input {
   color: white;
   padding: 10px;
   font-size: 18px;
+}
+
+.forgetPassword {
+  margin-top: 20px;
+  font-size: small;
+  color: rgb(150, 143, 143);
+}
+
+button:hover {
+  background: #2731b9;
+  transition-duration: 5ms;
+}
+
+.forgetPassword:hover {
+  scale: 100%;
 }
 
 /* Mobile Styles */
