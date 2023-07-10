@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActons } from "./store/user-reducer";
 import axios from "axios";
 import ForgetPasswordPage from "./pages/ForgetPassword/ForgetPasswordPage";
+import ResetPage from "./pages/ResetPassword/ResetPage";
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.name);
@@ -53,6 +54,10 @@ function App() {
         {
           path: "/forgetpassword",
           element: <ForgetPasswordPage />,
+        },
+        {
+          path: "/resetpassword/:id",
+          element: <ResetPage />,
         },
       ],
     },

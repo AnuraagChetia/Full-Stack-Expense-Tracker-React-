@@ -13,6 +13,7 @@ const ForgetPasswordPage = () => {
       await axios.post("http://localhost:3000/password/forgetpassword", {
         email: enteredEmail,
       });
+      alert("Reset password link has been sent to your mail");
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +29,9 @@ const ForgetPasswordPage = () => {
         </p>
         <form className="form" onSubmit={submitHandler}>
           <input type="email" name="email" placeholder="Email" ref={emailRef} />
-          <button type="submit">Send login link</button>
+          <button type="submit" className="submitBtn">
+            Send login link
+          </button>
         </form>
         <div className="or">
           <hr />

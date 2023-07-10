@@ -1,6 +1,5 @@
 .formContainer {
   display: flex;
-  width: fit-content;
   justify-content: center;
   /* align-items: center; */
   background-color: #fff;
@@ -44,7 +43,6 @@ input:hover {
   display: flex;
   margin: 20px 0 0 0;
 }
-
 button {
   cursor: pointer;
   margin: 0 10px 0 0;
@@ -56,14 +54,23 @@ button {
 
 button:hover {
   scale: 103%;
-  transition-duration: 2s;
+  transition-duration: 2ms;
 }
 
 .cancel {
   color: rgb(39, 145, 39);
 }
+.cancel:hover {
+  background-color: rgb(240, 240, 240);
+}
 
 .save {
+  background-color: rgb(114, 197, 114);
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.save:hover {
   background-color: rgb(114, 197, 114);
   letter-spacing: 1px;
   color: #fff;

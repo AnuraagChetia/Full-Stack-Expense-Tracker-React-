@@ -24,6 +24,7 @@
 
 .premium:hover {
   scale: 105%;
+  background: #80e477;
   transition-duration: 3ms;
 }
 
