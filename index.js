@@ -6,7 +6,9 @@ const sequelize = require("./util/database");
 const expenses = require("./model/expense");
 const user = require("./model/user");
 const order = require("./model/order");
+const download = require("./model/download");
 const forgetPasswordRequests = require("./model/forgetPasswordRequests");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -30,6 +32,9 @@ order.belongsTo(user);
 
 user.hasMany(forgetPasswordRequests);
 forgetPasswordRequests.belongsTo(user);
+
+user.hasMany(download);
+download.belongsTo(user);
 
 //Routes
 app.use("/users", userRouter);
