@@ -10,6 +10,7 @@ import { userActons } from "./store/user-reducer";
 import axios from "axios";
 import ForgetPasswordPage from "./pages/ForgetPassword/ForgetPasswordPage";
 import ResetPage from "./pages/ResetPassword/ResetPage";
+import ReportPage from "./pages/report/ReportPage";
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.name);
@@ -24,6 +25,7 @@ function App() {
           name: user.data.user.name,
           email: user.data.user.email,
           premium: user.data.user.premium,
+          totalExpense: user.data.user.totalExpense,
         })
       );
     };
@@ -50,6 +52,10 @@ function App() {
         {
           path: "/leaderboard",
           element: isLoggedIn ? <Leaderboard /> : <AuthPage />,
+        },
+        {
+          path: "/report",
+          element: isLoggedIn ? <ReportPage /> : <AuthPage />,
         },
         {
           path: "/forgetpassword",
