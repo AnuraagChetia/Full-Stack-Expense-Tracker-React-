@@ -5,8 +5,7 @@ const AWS = require("aws-sdk");
 
 exports.getExpense = async (req, res) => {
   try {
-    const response = await Expense.findAll({ where: { userId: req.user.id } });
-    res.status(200).json(response);
+    res.status(200).json(req.results);
   } catch (error) {
     res.status(500).json(error);
   }

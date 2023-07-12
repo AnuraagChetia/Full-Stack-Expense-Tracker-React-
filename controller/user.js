@@ -80,6 +80,7 @@ exports.getUser = async (req, res) => {
     const user = await User.findByPk(req.user.id);
     res.status(201).json({ user: user });
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };
