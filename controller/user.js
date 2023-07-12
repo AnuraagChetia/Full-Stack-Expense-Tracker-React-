@@ -2,6 +2,8 @@ const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const Download = require("../model/download");
+
 function tokenGenerator(id, email) {
   return jwt.sign({ id: id, email: email }, "thisiskey");
 }
@@ -79,5 +81,17 @@ exports.getUser = async (req, res) => {
     res.status(201).json({ user: user });
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+exports.getDownload = async (req, res) => {
+  try {
+    const downloads = await Download.findAll({
+      where: { userId: req.user.id },
+    });
+    res.status(200).json(downloads);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: error });
   }
 };
