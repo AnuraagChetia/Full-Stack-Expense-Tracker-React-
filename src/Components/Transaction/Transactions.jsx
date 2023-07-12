@@ -2,6 +2,7 @@ import React from "react";
 import "./transaction.css";
 import { useDispatch, useSelector } from "react-redux";
 import { expenseActions } from "../../store/expense-reducer";
+import Pagination from "../Pagination/Pagination";
 import axios from "axios";
 // const expenses = [
 //   {
@@ -80,6 +81,7 @@ const Transactions = () => {
           </div>
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };

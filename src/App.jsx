@@ -14,6 +14,7 @@ import ReportPage from "./pages/report/ReportPage";
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.name);
+  const isPremium = useSelector((state) => state.user.premium);
   useEffect(() => {
     const getUser = async () => {
       const token = JSON.parse(localStorage.getItem("token"));
@@ -51,11 +52,25 @@ function App() {
         },
         {
           path: "/leaderboard",
-          element: isLoggedIn ? <Leaderboard /> : <AuthPage />,
+          element:
+            isLoggedIn && isPremium ? (
+              <Leaderboard />
+            ) : isLoggedIn ? (
+              <TransactionsPage />
+            ) : (
+              <AuthPage />
+            ),
         },
         {
           path: "/report",
-          element: isLoggedIn ? <ReportPage /> : <AuthPage />,
+          element:
+            isLoggedIn && isPremium ? (
+              <ReportPage />
+            ) : isLoggedIn ? (
+              <TransactionsPage />
+            ) : (
+              <AuthPage />
+            ),
         },
         {
           path: "/forgetpassword",

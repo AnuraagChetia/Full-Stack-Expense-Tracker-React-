@@ -30,8 +30,9 @@
 
 .navs {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 40%;
+  margin-right: 30px;
 }
 
 a {

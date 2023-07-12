@@ -7,14 +7,17 @@ const userSlice = createSlice({
     email: "",
     premium: "",
     totalExpense: "",
+    downloads: [],
   },
   reducers: {
     getUser(state, action) {
-      console.log(action.payload);
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.premium = action.payload.premium;
       state.totalExpense = action.payload.totalExpense;
+    },
+    getDownloads(state, action) {
+      state.downloads = action.payload.downloads;
     },
   },
 });

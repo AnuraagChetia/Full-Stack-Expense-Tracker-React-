@@ -11,14 +11,14 @@ const TransactionsPage = () => {
   useEffect(() => {
     const get = async () => {
       const token = JSON.parse(localStorage.getItem("token"));
-      const res = await axios.get("http://localhost:3000/expense/get-expense", {
-        headers: { Authorization: token },
-      });
-      const expenses = res.data;
+      const res = await axios.get(
+        "http://localhost:3000/expense/get-expense?page=1&limit=5",
+        {
+          headers: { Authorization: token },
+        }
+      );
+      const expenses = res.data.expenses;
       dispatch(expenseActions.fetchExpense(expenses));
-      // expenses.forEach((exp) => {
-      //   dispatch(expenseActions.fetchExpense(exp));
-      // });
     };
     get();
   }, []);

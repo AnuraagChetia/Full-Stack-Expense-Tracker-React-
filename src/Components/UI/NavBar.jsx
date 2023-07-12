@@ -62,11 +62,19 @@ const NavBar = () => {
         <div className="navs">
           {isLoggedIn && <Link to="/transactions">Transactions</Link>}
           {premium && isLoggedIn ? (
-            <Link to="/leaderboard">Leaderboard</Link>
+            <>
+              <Link to="/leaderboard">Leaderboard</Link>
+              <Link to="/report">Report</Link>
+            </>
           ) : isLoggedIn ? (
-            <Link to="/transactions" className="disabled">
-              Leaderboard <FontAwesomeIcon icon={faLock} />
-            </Link>
+            <>
+              <Link to="/transactions" className="disabled">
+                Leaderboard <FontAwesomeIcon icon={faLock} />
+              </Link>
+              <Link to="/report" className="disabled">
+                Report <FontAwesomeIcon icon={faLock} />
+              </Link>
+            </>
           ) : null}
           {isLoggedIn && (
             <a href="/" onClick={logoutHandler}>

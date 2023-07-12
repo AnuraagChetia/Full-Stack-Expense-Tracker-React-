@@ -1,3 +1,6 @@
+.leaderboard-container{
+  margin-bottom: 4rem;
+}
 .totalExpense {
   padding: 20px;
   /* border: 1px solid gray; */
@@ -9,6 +12,7 @@
   font-size: large;
   background-color: white;
 }
+
 .totalAmount {
   color: red;
   font-weight: 800;
@@ -20,4 +24,8 @@
 }
 .downloadBtn:hover {
   background-color: rgb(169, 216, 98);
+}
+
+.expA {
+  color: blue;
 }
