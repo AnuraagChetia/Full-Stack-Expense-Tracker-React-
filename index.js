@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fs = require("fs");
+const helmet = require("helmet");
+const morgan = require("morgan");
+
 const sequelize = require("./util/database");
 
 const expenses = require("./model/expense");
@@ -11,9 +15,15 @@ const forgetPasswordRequests = require("./model/forgetPasswordRequests");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
 
+//logfile
+const accessLogStream = fs.createWriteStream("access.log", { flags: "a" });
+
+//defaults
+app.use(cors());
 app.use(bodyParser.json());
+app.use(helmet());
+app.use(morgan("combined", { stream: accessLogStream }));
 
 const port = 3000;
 

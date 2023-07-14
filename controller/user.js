@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const Download = require("../model/download");
 
 function tokenGenerator(id, email) {
-  return jwt.sign({ id: id, email: email }, "thisiskey");
+  return jwt.sign({ id: id, email: email }, process.env.AUTH_KEY);
 }
 
 exports.signup = async (req, res) => {
